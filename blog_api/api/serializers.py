@@ -16,4 +16,13 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fiels = ['id', 'name']
-        
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        author = UserSerializer(read_only=True)
+        category = CategorySerializer()
+        tags = TagSerializer(many=True)
+
+        class Meta:
+            model = Post
+            fields = ['id', 'title', 'content', 'author', 'tags', 'published_at']
